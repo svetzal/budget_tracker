@@ -1,22 +1,19 @@
+from decimal import Decimal
 from datetime import date
+from typing import Literal, Union, Optional
 
 from pydantic import BaseModel
+from pydantic.types import List
 
-
-class Money(BaseModel):
-    __root__: float
-
-    def percent(self, percent: float) -> float:
-        return round(self.__root__ * percent, 2)
-
-    def __str__(self):
-        return f"${self.__root__:,.2f}"
+from data_types import Money
 
 
 class FundingSource(BaseModel):
     transit: int
     name: str
     total: Money
+    start_date: date
+    end_date: date
 
 
 class SupportArea(BaseModel):
@@ -27,16 +24,21 @@ class SupportArea(BaseModel):
 class LineItem(BaseModel):
     description: str
     amount: Money
+    contractor_code: str
     taxable: bool
 
 
 class HoursLineItem(LineItem):
-    contractor_code: str
-    hours: int
+    hours: Optional[int] = None
+    tag: Literal["Hours"] = "Hours"
 
 
 class ExpenseLineItem(LineItem):
-    pass
+    tag: Literal["Expense"] = "Expense"
+
+
+class IncidentalLineItem(LineItem):
+    tag: Literal["Incidental"] = "Incidental"
 
 
 class Invoice(BaseModel):
@@ -45,12 +47,12 @@ class Invoice(BaseModel):
     issue_date: date
     period_start: date
     period_end: date
-    line_items: list[LineItem] = []
+    line_items: List[Union[IncidentalLineItem, HoursLineItem, ExpenseLineItem]] = []
 
     def total(self) -> Money:
-        amounts = [i.amount.__root__ for i in self.line_items]
+        amounts = [i.amount.root for i in self.line_items]
         total = sum(amounts)
-        money = Money(__root__=total)
+        money = Money(root=total)
         return money
 
 
@@ -59,9 +61,9 @@ class Consultancy(BaseModel):
     name: str
     contract: str
     contact_name: str
-    contact_phone: str
-    contact_email: str
-    invoices: list[Invoice] = []
+    contact_phone: Optional[str] = None
+    contact_email: Optional[str] = None
+    invoices: List[Invoice] = []
 
 
 class TransactionAgreement(BaseModel):
@@ -76,9 +78,10 @@ class TransactionAgreement(BaseModel):
 class Person(BaseModel):
     code: str
     name: str
-    phone_number: str
     email: str
     start_date: date
+    phone_number: Optional[str] = None
+    end_date: Optional[date] = None
 
     def org_code(self):
         return None
@@ -110,17 +113,27 @@ class AreaAssignment(BaseModel):
 
 
 class CoachingPracticeFinance(BaseModel):
-    consultancies: list[Consultancy] = []
-    people: list[Person] = []
-    transaction_agreements: list[TransactionAgreement] = []
-    funding_sources: list[FundingSource] = []
-    support_areas: list[SupportArea] = []
-    area_assignments: list[AreaAssignment] = []
+    fiscal_start_month: int = 11
+    stat_holidays_per_year: int = 9
+    statutory_holiday_list: List[str] = ['2023-01-02', '2023-02-20', '2023-04-07', '2023-05-22', '2023-07-03',
+                                         '2023-08-07', '2023-09-04', '2023-10-09', '2023-12-25', '2023-12-26',
+                                         '2024-01-01', '2024-02-19', '2024-04-01', '2024-05-20', '2024-07-01',
+                                         '2024-08-05', '2024-09-02', '2024-10-14', '2024-12-25', '2024-12-26']
+    expected_weeks_holidays: int = 4
+    standard_hours_per_day: Decimal = 7.5
+    consultancies: List[Consultancy] = []
+    employees: List[Employee] = []
+    contractors: List[Contractor] = []
+    transaction_agreements: List[TransactionAgreement] = []
+    funding_sources: List[FundingSource] = []
+    support_areas: List[SupportArea] = []
+    area_assignments: List[AreaAssignment] = []
 
     @classmethod
     def load(cls):
-        return cls.parse_file("practice.json")
+        with open("practice.json", "r") as f:
+            return cls.model_validate_json(f.read())
 
     def save(self):
         with open("practice.json", "w") as f:
-            f.write(self.json(indent=4))
+            f.write(self.model_dump_json(indent=4))

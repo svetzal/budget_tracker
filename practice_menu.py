@@ -2,8 +2,8 @@ import inspect
 
 from entities import CoachingPracticeFinance
 from presentation import Colours
-from report_use_cases import ListPeople, ListConsultancies
-from use_cases import AddConsultancy, AddContractor, AddEmployee
+from report_use_cases import ListPeople, ListConsultancies, CurrentFiscalYearMonthly, NextFiscalYearBudgetMonthly
+from use_cases import AddConsultancy, AddContractor, AddEmployee, AddTransactionAgreement
 
 
 def main():
@@ -30,6 +30,18 @@ def main():
             'func': ListPeople(practice).execute,
             'label': 'List People'
         },
+        'add_transaction_agreement': {
+            'func': AddTransactionAgreement(practice).execute,
+            'label': 'Add Transaction Agreement'
+        },
+        'current_fiscal_year_monthly': {
+            'func': CurrentFiscalYearMonthly(practice).execute,
+            'label': 'Current Fiscal Year Monthly'
+        },
+        'next_fiscal_year_budget_monthly': {
+            'func': NextFiscalYearBudgetMonthly(practice).execute,
+            'label': 'Next Fiscal Year Budget Monthly'
+        }
     }
 
     while True:
@@ -37,13 +49,19 @@ def main():
         print(Colours.HEADER + Colours.UNDERLINE + "Digital Agile Coaching Practice" + Colours.RESET)
         print("")
         print("Menu:")
+        print(f"{Colours.OKGREEN}-1{Colours.RESET} - Exit Without Saving")
+        print(f" {Colours.OKGREEN}0{Colours.RESET} - Save & Exit")
         for i, key in enumerate(functions.keys()):
             print(f" {Colours.OKGREEN}{i + 1}{Colours.RESET} - {functions[key]['label']}")
         print("")
 
         choice = int(input("Enter choice: "))
 
+        if choice == -1:
+            exit()
+
         if choice == 0:
+            practice.save()
             exit()
 
         chosen_func = list(functions.values())[choice - 1]['func']

@@ -1,5 +1,11 @@
+import datetime
+from _decimal import Decimal
+
+import pandas as pd
+
 from entities import CoachingPracticeFinance, TransactionAgreement, Contractor, Consultancy, Invoice, HoursLineItem, \
-    ExpenseLineItem, FundingSource, SupportArea, AreaAssignment, Employee
+    ExpenseLineItem, FundingSource, SupportArea, AreaAssignment, Employee, Person
+from data_types import Money
 
 
 class UseCase:
@@ -50,12 +56,24 @@ class UseCase:
         return candidates[0]
 
     def find_contractor(self, contractor_code):
-        candidates = [c for c in self.practice.people if c.code == contractor_code]
+        candidates = [c for c in self.practice.contractors if c.code == contractor_code]
         if len(candidates) == 0:
             raise ValueError(f"Contractor {contractor_code} does not exist")
         if (len(candidates) > 1):
             raise ValueError(f"Contractor {contractor_code} is ambiguous (found multiple)")
         return candidates[0]
+
+    def aggregate_contractors_employees(self):
+        people: list[Person] = []
+        for p in self.practice.contractors:
+            people.append(p)
+        for p in self.practice.employees:
+            people.append(p)
+        return people
+
+    def count_business_days_between_dates(self, start_date: datetime.date, end_date: datetime.date) -> int:
+        return pd.bdate_range(start_date, end_date, freq='C', holidays=self.practice.statutory_holiday_list).size
+
 
 
 class AddConsultancy(UseCase):
@@ -73,24 +91,47 @@ class AddConsultancy(UseCase):
 
 
 class AddContractor(UseCase):
-    def execute(self, code: str, name: str, phone_number: str, email: str, start_date: str, consultancy_code: str):
-        contractor = Contractor(code, name, phone_number, email, start_date, consultancy_code)
+    def execute(self, code: str, name: str, consultancy_code: str, email: str, start_date: str,
+                phone_number: str = None, end_date: str = None):
+        contractor = Contractor(
+            code=code,
+            name=name,
+            email=email,
+            start_date=start_date,
+            consultancy_code=consultancy_code,
+            phone_number=phone_number,
+            end_date=datetime.date.fromisoformat(end_date) if end_date else None,
+        )
         if contractor.consultancy_code not in [c.code for c in self.practice.consultancies]:
             raise ValueError(f"Consultancy {contractor.consultancy_code} does not exist")
-        if contractor not in self.practice.people:
-            self.practice.people.append(contractor)
+        if contractor not in self.practice.contractors:
+            self.practice.contractors.append(contractor)
 
 
 class AddEmployee(UseCase):
-    def execute(self, code: str, name: str, phone_number: str, email: str, start_date: str):
-        employee = Employee(code, name, phone_number, email, start_date)
-        if employee not in self.practice.people:
-            self.practice.people.append(employee)
+    def execute(self, code: str, name: str, email: str, start_date: str, end_date: str = None, phone_number: str = None):
+        employee = Employee(
+            code=code,
+            name=name,
+            email=email,
+            start_date=start_date,
+            phone_number=phone_number,
+            end_date=datetime.date.fromisoformat(end_date) if end_date else None,
+        )
+        if employee not in self.practice.employees:
+            self.practice.employees.append(employee)
 
 
 class AddTransactionAgreement(UseCase):
-    def execute(self, **kwargs):
-        transaction_agreement = TransactionAgreement(**kwargs)
+    def execute(self, number: str, contractor_code: str, hours: int, rate: float, start_date: datetime.date, end_date: datetime.date):
+        transaction_agreement = TransactionAgreement(
+            number=number,
+            contractor_code=contractor_code,
+            hours=hours,
+            rate=Money(root=Decimal(rate)),
+            start_date=start_date,
+            end_date=end_date
+        )
         if transaction_agreement not in self.practice.transaction_agreements:
             self.practice.transaction_agreements.append(transaction_agreement)
 
@@ -104,17 +145,28 @@ class AddInvoice(UseCase):
 
 
 class AddHoursLineItemToInvoice(UseCase):
-    def execute(self, **kwargs):
-        line_item = HoursLineItem(**kwargs)
-        invoice = self.find_invoice(kwargs['invoice_number'])
+    def execute(self, invoice_number: str, description: str, amount: Decimal, contractor_code: str, taxable: bool, hours: int):
+        line_item = HoursLineItem(
+            description=description,
+            amount=Money(root=amount),
+            contractor_code=contractor_code,
+            taxable=taxable,
+            hours=hours
+        )
+        invoice = self.find_invoice(invoice_number)
         if line_item not in invoice.line_items:
             invoice.line_items.append(line_item)
 
 
 class AddExpenseLineItemToInvoice(UseCase):
-    def execute(self, **kwargs):
-        line_item = ExpenseLineItem(**kwargs)
-        invoice = self.find_invoice(kwargs['invoice_number'])
+    def execute(self, invoice_number: str, description: str, amount: Decimal, contractor_code: str, taxable: bool):
+        line_item = ExpenseLineItem(
+            description=description,
+            amount=Money(root=amount),
+            contractor_code=contractor_code,
+            taxable=taxable
+        )
+        invoice = self.find_invoice(invoice_number)
         if line_item not in invoice.line_items:
             invoice.line_items.append(line_item)
 
@@ -126,8 +178,14 @@ class MarkInvoiceAsPaid(UseCase):
 
 
 class AddFundingSource(UseCase):
-    def execute(self, **kwargs):
-        funding_source = FundingSource(**kwargs)
+    def execute(self, transit: int, name: str, total: Decimal, start_date: str, end_date: str):
+        funding_source = FundingSource(
+            transit=transit,
+            name=name,
+            total=Money(root=total),
+            start_date=datetime.date.fromisoformat(start_date),
+            end_date=datetime.date.fromisoformat(end_date)
+        )
         if funding_source not in self.practice.funding_sources:
             self.practice.funding_sources.append(funding_source)
 
