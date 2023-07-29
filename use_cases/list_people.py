@@ -12,7 +12,7 @@ class ListPeople(UseCase):
                 if c.code == p.consultancy_code:
                     people.append([p.code, p.name, c.name])
         for p in self.practice.employees:
-            people.append([p.code, p.name, "RBC"])
+            people.append([p.code, p.name, "Coaching Practice"])
         df = pd.DataFrame(people, columns=["Code", "Name", "Company"])
         output = DataFrameRenderer(title="People", data=df, sort_by=["Name"])
         return output.lines()
