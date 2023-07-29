@@ -1,0 +1,32 @@
+[
+    {
+        "code": "1",
+        "name": "Consultancy 1",
+        "contract": "CTR001",
+        "contact_name": "Someone",
+        "contact_phone": "647-555-1212",
+        "contact_email": "someone@consultancy1.com",
+        "invoices": [
+            {
+                "number": "123",
+                "consultancy_code": "1",
+                "paid_date": null,
+                "issue_date": "2023-01-07",
+                "line_items": [
+                    {
+                        "description": "Hours for first week",
+                        "amount": {
+                            "root": "4000"
+                        },
+                        "contractor_code": "1",
+                        "taxable": true,
+                        "hours": 40,
+                        "period_start": "2023-01-01",
+                        "period_end": "2023-01-07",
+                        "tag": "Hours"
+                    }
+                ]
+            }
+        ]
+    }
+]
