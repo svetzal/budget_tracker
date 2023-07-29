@@ -1,7 +1,5 @@
 from entities import CoachingPracticeFinance
 from model_verifier import verify_model
-from use_cases.add_consultancy import AddConsultancy
-from use_cases.add_contractor import AddContractor
 from use_cases.add_transaction_agreement import AddTransactionAgreement
 from use_cases.test_data_generators import FIRST_CONTRACTOR_CODE
 
