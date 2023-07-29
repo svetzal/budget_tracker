@@ -1,0 +1,19 @@
+[
+    {
+        "code": "1",
+        "name": "Consultancy 1",
+        "contract": "CTR001",
+        "contact_name": "Someone",
+        "contact_phone": "647-555-1212",
+        "contact_email": "someone@consultancy1.com",
+        "invoices": [
+            {
+                "number": "123",
+                "consultancy_code": "1",
+                "paid": false,
+                "issue_date": "2023-01-01",
+                "line_items": []
+            }
+        ]
+    }
+]

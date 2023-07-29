@@ -1,0 +1,6 @@
+
+People
+
+  [1m[4mCode[0m  [1m[4mName[0m          [1m[4mCompany[0m
+     1  Contractor 1  Consultancy 1
+     1  Employee 1    Coaching Practice
