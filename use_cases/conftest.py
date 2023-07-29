@@ -1,8 +1,10 @@
+from _decimal import Decimal
+
 import pytest
 
 from data_types import Money
 from entities import CoachingPracticeFinance, Consultancy, Contractor, Employee, FundingSource, SupportArea, \
-    AreaAssignment
+    AreaAssignment, TransactionAgreement
 from use_cases.test_data_generators import consultancy_details_generator, contractor_details_generator, \
     FIRST_CONSULTANCY_ID, SECOND_CONSULTANCY_ID, employee_details_generator, funding_source_details_generator, \
     support_area_details_generator, FIRST_SUPPORT_AREA_CODE, FIRST_TRANSIT, FIRST_EMPLOYEE_ID, SECOND_CONTRACTOR_CODE, \
@@ -74,6 +76,16 @@ def staffed_practice(empty_practice: CoachingPracticeFinance,
                      first_support_area_details: dict) -> CoachingPracticeFinance:
     empty_practice.consultancies.append(Consultancy(**first_consultancy_details))
     empty_practice.contractors.append(Contractor(**first_contractor_details))
+    empty_practice.transaction_agreements.append(
+        TransactionAgreement(
+            number="1",
+            contractor_code=FIRST_CONTRACTOR_CODE,
+            hours=100,
+            rate=Money.from_int(100),
+            start_date="2023-01-01",
+            end_date="2023-12-31"
+        )
+    )
     empty_practice.employees.append(Employee(**first_employee_details))
     empty_practice.funding_sources.append(FundingSource(
         transit=first_funding_source_details['transit'],
@@ -87,7 +99,7 @@ def staffed_practice(empty_practice: CoachingPracticeFinance,
 
 
 @pytest.fixture
-def staffed_assigned_practice(staffed_practice: CoachingPracticeFinance):
+def operational_practice(staffed_practice: CoachingPracticeFinance):
     staffed_practice.area_assignments.append(
         AreaAssignment(
             support_area_code=FIRST_SUPPORT_AREA_CODE,

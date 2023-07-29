@@ -6,6 +6,14 @@ from pydantic import BaseModel
 class Money(BaseModel):
     root: Decimal
 
+    @classmethod
+    def from_float(cls, value: float) -> 'Money':
+        return cls(root=Decimal(value))
+
+    @classmethod
+    def from_int(cls, value: int) -> 'Money':
+        return cls(root=Decimal(value))
+
     def percent(self, percent: float) -> Decimal:
         return Decimal(round(float(self.root) * percent, 2))
 
