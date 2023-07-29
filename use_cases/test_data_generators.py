@@ -1,5 +1,16 @@
-FIRST_CONSULTANCY_ID = 1
-SECOND_CONSULTANCY_ID = 2
+from _decimal import Decimal
+
+from data_types import Money
+
+FIRST_CONSULTANCY_ID = "1"
+SECOND_CONSULTANCY_ID = "2"
+FIRST_SUPPORT_AREA_NUMBER = 1
+FIRST_SUPPORT_AREA_CODE = "area1"
+FIRST_TRANSIT = 1
+FIRST_CONTRACTOR_CODE = "1"
+SECOND_CONTRACTOR_CODE = "2"
+FIRST_EMPLOYEE_ID = "1"
+
 
 def consultancy_details_generator(id: int):
     return {
@@ -31,18 +42,18 @@ def employee_details_generator(id):
     }
 
 
-def funding_source_details_generator(transit):
+def funding_source_details_generator(transit: int):
     return {
         "transit": transit,
         "name": f"Bank {transit}",
-        "total": 1000,
+        "total": Decimal(1000),
         "start_date": "2023-01-01",
         "end_date": "2023-12-31",
     }
 
 
-def support_area_details_generator(id):
+def support_area_details_generator(id: str, number: int = 1):
     return {
-        "code": f"area{id}",
-        "name": f"Area {id}",
+        "code": id,
+        "name": f"Area {number}",
     }

@@ -1,52 +1,16 @@
-from _decimal import Decimal
-
 from entities import CoachingPracticeFinance
 from model_verifier import verify_model
 from use_cases.add_area_assignment import AddAreaAssignment
-from use_cases.add_consultancy import AddConsultancy
-from use_cases.add_contractor import AddContractor
-from use_cases.add_funding_source import AddFundingSource
-from use_cases.add_support_area import AddSupportArea
+from use_cases.test_data_generators import FIRST_SUPPORT_AREA_CODE, FIRST_CONTRACTOR_CODE, FIRST_TRANSIT
 
 
-def test_add_area_assignment(empty_practice: CoachingPracticeFinance):
-    AddSupportArea(empty_practice).execute(
-        code="1",
-        name="Area 1"
+def test_add_area_assignment(staffed_practice: CoachingPracticeFinance):
+    AddAreaAssignment(staffed_practice).execute(
+        support_area_code=FIRST_SUPPORT_AREA_CODE,
+        contractor_code=FIRST_CONTRACTOR_CODE,
+        funding_source_transit=FIRST_TRANSIT,
+        start_date="2023-01-01",
+        end_date="2023-12-31",
     )
 
-    AddFundingSource(empty_practice).execute(
-        transit=1,
-        name="Funding Source 1",
-        total=Decimal(100000),
-        start_date="2020-01-01",
-        end_date="2020-12-31",
-    )
-
-    AddConsultancy(empty_practice).execute(
-        code="1",
-        name="Consultancy 1",
-        contract="CTR00123",
-        contact_name="Someone",
-        contact_phone="647-555-1212",
-        contact_email="someone@somewhere.com",
-    )
-
-    AddContractor(empty_practice).execute(
-        code="1",
-        name="Contractor 1",
-        consultancy_code="1",
-        phone_number="647-555-1212",
-        email="someone@somewhere.com",
-        start_date="2020-01-01",
-    )
-
-    AddAreaAssignment(empty_practice).execute(
-        support_area_code="1",
-        contractor_code="1",
-        funding_source_transit=1,
-        start_date="2020-01-01",
-        end_date="2020-12-31",
-    )
-
-    verify_model(empty_practice.area_assignments)
+    verify_model(staffed_practice.area_assignments)
