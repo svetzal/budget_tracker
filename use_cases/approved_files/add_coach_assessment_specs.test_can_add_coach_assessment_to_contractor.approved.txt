@@ -6,7 +6,14 @@
         "start_date": "2023-01-01",
         "phone_number": null,
         "end_date": null,
-        "assessments": [],
+        "assessments": [
+            {
+                "completed_on": "2023-01-01",
+                "leadership": 0.5,
+                "technical": 0.5,
+                "practice": 1.0
+            }
+        ],
         "consultancy_code": "1"
     }
 ]

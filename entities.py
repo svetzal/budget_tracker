@@ -21,6 +21,20 @@ class SupportArea(BaseModel):
     name: str = Field(..., description="Name of the support area")
 
 
+class CoachAssessment(BaseModel):
+    completed_on: date = Field(..., description="Date the coach assessment was completed")
+    leadership: float = Field(..., description="Leadership score of the coach profile")
+    technical: float = Field(..., description="Technical score of the coach profile")
+    practice: float = Field(..., description="Practice score of the coach profile")
+
+
+class SupportPlan(BaseModel):
+    support_area_code: str = Field(..., description="Support area of the support plan")
+    contractor_code: str = Field(..., description="Contractor code of the support plan")
+    start_date: date = Field(..., description="Start date of the support plan")
+    end_date: date = Field(..., description="End date of the support plan")
+    coach_profile: CoachAssessment = Field(..., description="Coach profile of the support plan")
+
 class LineItem(BaseModel):
     description: str = Field(..., description="Description of the line item")
     amount: Money = Field(..., description="Amount of the line item")
@@ -83,6 +97,7 @@ class Person(BaseModel):
     start_date: date = Field(..., description="Start date of employment for the person")
     phone_number: Optional[str] = Field(None, description="Phone number of the person")
     end_date: Optional[date] = Field(None, description="End date of employment for the person")
+    assessments: List[CoachAssessment] = []
 
     def org_code(self):
         return None
@@ -128,13 +143,14 @@ class CoachingPracticeFinance(BaseModel):
     transaction_agreements: List[TransactionAgreement] = []
     funding_sources: List[FundingSource] = []
     support_areas: List[SupportArea] = []
+    support_plans: List[SupportPlan] = []
     area_assignments: List[AreaAssignment] = []
 
     @classmethod
-    def load(cls):
-        with open("practice.json", "r") as f:
+    def load(cls, filename: str = "practice.json"):
+        with open(filename, "r") as f:
             return cls.model_validate_json(f.read())
 
-    def save(self):
-        with open("practice.json", "w") as f:
+    def save(self, filename: str = "practice.json"):
+        with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=4))

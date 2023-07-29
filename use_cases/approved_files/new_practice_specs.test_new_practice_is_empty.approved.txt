@@ -31,5 +31,6 @@
     "transaction_agreements": [],
     "funding_sources": [],
     "support_areas": [],
+    "support_plans": [],
     "area_assignments": []
 }

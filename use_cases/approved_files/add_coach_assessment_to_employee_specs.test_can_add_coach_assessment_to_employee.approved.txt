@@ -1,0 +1,18 @@
+[
+    {
+        "code": "1",
+        "name": "Employee 1",
+        "email": "employee1.name@mycompany.com",
+        "start_date": "2021-01-01",
+        "phone_number": null,
+        "end_date": null,
+        "assessments": [
+            {
+                "completed_on": "2023-01-01",
+                "leadership": 0.5,
+                "technical": 0.5,
+                "practice": 1.0
+            }
+        ]
+    }
+]

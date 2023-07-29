@@ -6,6 +6,7 @@
         "start_date": "2023-01-01",
         "phone_number": null,
         "end_date": null,
+        "assessments": [],
         "consultancy_code": "1"
     },
     {
@@ -15,6 +16,7 @@
         "start_date": "2023-01-01",
         "phone_number": null,
         "end_date": null,
+        "assessments": [],
         "consultancy_code": "1"
     }
 ]

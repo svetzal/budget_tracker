@@ -96,6 +96,14 @@ class UseCase:
             raise ValueError(f"Contractor {contractor_code} is ambiguous (found multiple)")
         return candidates[0]
 
+    def find_employee(self, employee_code):
+        candidates = [e for e in self.practice.employees if e.code == employee_code]
+        if len(candidates) == 0:
+            raise ValueError(f"Employee {employee_code} does not exist")
+        if (len(candidates) > 1):
+            raise ValueError(f"Employee {employee_code} is ambiguous (found multiple)")
+        return candidates[0]
+
     def aggregate_contractors_employees(self):
         people: list[Person] = []
         for p in self.practice.contractors:

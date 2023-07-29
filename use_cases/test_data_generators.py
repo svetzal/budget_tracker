@@ -9,7 +9,7 @@ FIRST_SUPPORT_AREA_CODE = "area1"
 FIRST_TRANSIT = 1
 FIRST_CONTRACTOR_CODE = "1"
 SECOND_CONTRACTOR_CODE = "2"
-FIRST_EMPLOYEE_ID = "1"
+FIRST_EMPLOYEE_CODE = "1"
 
 
 def consultancy_details_generator(id: int):

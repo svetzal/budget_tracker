@@ -5,6 +5,7 @@
         "email": "employee1.name@mycompany.com",
         "start_date": "2021-01-01",
         "phone_number": null,
-        "end_date": null
+        "end_date": null,
+        "assessments": []
     }
 ]

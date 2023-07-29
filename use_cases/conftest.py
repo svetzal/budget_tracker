@@ -7,7 +7,7 @@ from entities import CoachingPracticeFinance, Consultancy, Contractor, Employee,
     AreaAssignment, TransactionAgreement
 from use_cases.test_data_generators import consultancy_details_generator, contractor_details_generator, \
     FIRST_CONSULTANCY_CODE, SECOND_CONSULTANCY_ID, employee_details_generator, funding_source_details_generator, \
-    support_area_details_generator, FIRST_SUPPORT_AREA_CODE, FIRST_TRANSIT, FIRST_EMPLOYEE_ID, SECOND_CONTRACTOR_CODE, \
+    support_area_details_generator, FIRST_SUPPORT_AREA_CODE, FIRST_TRANSIT, FIRST_EMPLOYEE_CODE, SECOND_CONTRACTOR_CODE, \
     FIRST_CONTRACTOR_CODE, FIRST_SUPPORT_AREA_NUMBER, FIRST_INVOICE_NUMBER
 
 
@@ -38,7 +38,7 @@ def second_contractor_details():
 
 @pytest.fixture
 def first_employee_details():
-    return employee_details_generator(FIRST_EMPLOYEE_ID)
+    return employee_details_generator(FIRST_EMPLOYEE_CODE)
 
 
 @pytest.fixture
