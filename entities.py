@@ -30,6 +30,8 @@ class LineItem(BaseModel):
 
 class HoursLineItem(LineItem):
     hours: Optional[int] = Field(None, description="Number of hours for the line item")
+    period_start: date = Field(..., description="Start date of the period covered by the line item")
+    period_end: date = Field(..., description="End date of the period covered by the line item")
     tag: Literal["Hours"] = "Hours"
 
 
@@ -43,10 +45,9 @@ class IncidentalLineItem(LineItem):
 
 class Invoice(BaseModel):
     number: str = Field(..., description="Number of the invoice")
+    consultancy_code: str = Field(..., description="Code of the issuing consultancy")
     paid: bool = Field(False, description="Payment status of the invoice")
     issue_date: date = Field(..., description="Issue date of the invoice")
-    period_start: date = Field(..., description="Start date of the period covered by the invoice")
-    period_end: date = Field(..., description="End date of the period covered by the invoice")
     line_items: List[Union[IncidentalLineItem, HoursLineItem, ExpenseLineItem]] = []
 
     def total(self) -> Money:
