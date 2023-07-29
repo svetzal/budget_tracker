@@ -1,0 +1,6 @@
+[
+    {
+        "code": "area1",
+        "name": "Area 1"
+    }
+]
