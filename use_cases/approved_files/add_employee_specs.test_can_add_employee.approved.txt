@@ -1,0 +1,10 @@
+[
+    {
+        "code": "1",
+        "name": "Employee 1",
+        "email": "someone@mycompany.com",
+        "start_date": "2021-01-01",
+        "phone_number": null,
+        "end_date": null
+    }
+]

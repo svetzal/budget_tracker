@@ -3,3 +3,6 @@ python-dateutil
 pandas
 openpyxl
 tabulate
+PyQt6
+approvaltests
+pytest-approvaltests

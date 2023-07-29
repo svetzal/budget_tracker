@@ -1,0 +1,20 @@
+[
+    {
+        "code": "1",
+        "name": "Contractor 1",
+        "email": "contractor@somewhere.com",
+        "start_date": "2021-01-01",
+        "phone_number": null,
+        "end_date": null,
+        "consultancy_code": "1"
+    },
+    {
+        "code": "2",
+        "name": "Contractor 2",
+        "email": "contractor@somewhere.com",
+        "start_date": "2021-01-01",
+        "phone_number": null,
+        "end_date": null,
+        "consultancy_code": "1"
+    }
+]

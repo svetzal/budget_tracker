@@ -2,8 +2,14 @@ import inspect
 
 from entities import CoachingPracticeFinance
 from presentation import Colours
-from report_use_cases import ListPeople, ListConsultancies, CurrentFiscalYearMonthly, NextFiscalYearBudgetMonthly
-from use_cases import AddConsultancy, AddContractor, AddEmployee, AddTransactionAgreement
+from use_cases.report_next_fiscal_year_monthly import NextFiscalYearBudgetMonthly
+from use_cases.report_current_fiscal_year_monthly import CurrentFiscalYearMonthly
+from use_cases.list_consultancies import ListConsultancies
+from use_cases.list_people import ListPeople
+from use_cases.add_transaction_agreement import AddTransactionAgreement
+from use_cases.add_employee import AddEmployee
+from use_cases.add_contractor import AddContractor
+from use_cases.add_consultancy import AddConsultancy
 
 
 def main():
