@@ -1,0 +1,5 @@
+
+Invoices
+
+  [1m[4mInvoice Number[0m  [1m[4mIssue Date[0m    [1m[4mTotal[0m    [1m[4mConsultancy[0m
+             123  2023-01-07    $100.00  Consultancy 1
