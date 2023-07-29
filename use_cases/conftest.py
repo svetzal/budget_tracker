@@ -49,12 +49,19 @@ def first_support_area_details():
 
 
 @pytest.fixture
-def practice_with_consultancy(empty_practice,
+def practice_with_consultancy(empty_practice: CoachingPracticeFinance,
                               first_consultancy_details: dict) -> CoachingPracticeFinance:
     empty_practice.consultancies.append(
         Consultancy(**first_consultancy_details)
     )
     return empty_practice
+
+
+@pytest.fixture
+def practice_with_consultancy_and_contractor(practice_with_consultancy: CoachingPracticeFinance,
+                                             first_contractor_details: dict) -> CoachingPracticeFinance:
+    practice_with_consultancy.contractors.append(Contractor(**first_contractor_details))
+    return practice_with_consultancy
 
 
 @pytest.fixture
