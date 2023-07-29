@@ -1,5 +1,7 @@
 __pycache__
 .idea
 .venv
+.ipynb_checkpoints
 initial_load.py
 practice.json
+/SampleDataframe.xlsx
