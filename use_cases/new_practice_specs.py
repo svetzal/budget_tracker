@@ -1,5 +1,5 @@
 from entities import CoachingPracticeFinance
-from model_verifier import verify_model
+from verifiers import verify_model
 
 
 def test_new_practice_is_empty():

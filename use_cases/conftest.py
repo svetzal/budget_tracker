@@ -1,7 +1,8 @@
 import pytest
 
 from data_types import Money
-from entities import CoachingPracticeFinance, Consultancy, Contractor, Employee, FundingSource, SupportArea
+from entities import CoachingPracticeFinance, Consultancy, Contractor, Employee, FundingSource, SupportArea, \
+    AreaAssignment
 from use_cases.test_data_generators import consultancy_details_generator, contractor_details_generator, \
     FIRST_CONSULTANCY_ID, SECOND_CONSULTANCY_ID, employee_details_generator, funding_source_details_generator, \
     support_area_details_generator, FIRST_SUPPORT_AREA_CODE, FIRST_TRANSIT, FIRST_EMPLOYEE_ID, SECOND_CONTRACTOR_CODE, \
@@ -83,6 +84,20 @@ def staffed_practice(empty_practice: CoachingPracticeFinance,
     ))
     empty_practice.support_areas.append(SupportArea(**first_support_area_details))
     return empty_practice
+
+
+@pytest.fixture
+def staffed_assigned_practice(staffed_practice: CoachingPracticeFinance):
+    staffed_practice.area_assignments.append(
+        AreaAssignment(
+            support_area_code=FIRST_SUPPORT_AREA_CODE,
+            contractor_code=FIRST_CONTRACTOR_CODE,
+            funding_source_transit=FIRST_TRANSIT,
+            start_date="2023-01-01",
+            end_date="2023-12-31"
+        )
+    )
+    return staffed_practice
 
 
 @pytest.fixture

@@ -1,5 +1,5 @@
 from entities import CoachingPracticeFinance
-from model_verifier import verify_model
+from verifiers import verify_model
 from use_cases.add_area_assignment import AddAreaAssignment
 from use_cases.test_data_generators import FIRST_SUPPORT_AREA_CODE, FIRST_CONTRACTOR_CODE, FIRST_TRANSIT
 

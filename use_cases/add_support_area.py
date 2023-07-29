@@ -3,7 +3,7 @@ from use_cases.use_case import UseCase
 
 
 class AddSupportArea(UseCase):
-    def execute(self, **kwargs):
-        support_area = SupportArea(**kwargs)
-        if support_area not in self.practice.support_areas:
-            self.practice.support_areas.append(support_area)
+    def execute(self, code: str, name: str):
+        self.guard_support_area_duplicate(code)
+        support_area = SupportArea(code=code, name=name)
+        self.practice.support_areas.append(support_area)

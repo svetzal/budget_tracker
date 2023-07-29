@@ -35,6 +35,10 @@ class UseCase:
         if not support_area_code in [a.code for a in self.practice.support_areas]:
             raise ValueError(f"Support area {support_area_code} does not exist")
 
+    def guard_support_area_duplicate(self, support_area_code: str):
+        if support_area_code in [a.code for a in self.practice.support_areas]:
+            raise ValueError(f"Support area {support_area_code} already exists")
+
     def guard_funding_source_exists(self, funding_source_transit):
         if not funding_source_transit in [f.transit for f in self.practice.funding_sources]:
             raise ValueError(f"Funding source {funding_source_transit} does not exist")

@@ -1,5 +1,5 @@
 from entities import CoachingPracticeFinance
-from model_verifier import verify_model
+from verifiers import verify_model
 from use_cases.add_funding_source import AddFundingSource
 
 
