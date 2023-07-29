@@ -1,7 +1,8 @@
 import pytest
 from entities import CoachingPracticeFinance, Consultancy
 from use_cases.test_data_generators import consultancy_details_generator, contractor_details_generator, \
-    FIRST_CONSULTANCY_ID, SECOND_CONSULTANCY_ID, employee_details_generator
+    FIRST_CONSULTANCY_ID, SECOND_CONSULTANCY_ID, employee_details_generator, funding_source_details_generator, \
+    support_area_details_generator
 
 
 @pytest.fixture
@@ -32,6 +33,16 @@ def second_contractor_details():
 @pytest.fixture
 def first_employee_details():
     return employee_details_generator(1)
+
+
+@pytest.fixture
+def first_funding_source_details():
+    return funding_source_details_generator(1)
+
+
+@pytest.fixture
+def first_support_area_details():
+    return support_area_details_generator(1)
 
 
 @pytest.fixture

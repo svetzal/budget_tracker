@@ -20,6 +20,7 @@ def test_can_add_multiple_contractors_to_consultancy(practice_with_consultancy: 
 
     verify_model(practice_with_consultancy.contractors)
 
+
 def test_cant_add_contractor_to_nonexistent_consultancy(empty_practice: CoachingPracticeFinance,
                                                         first_contractor_details: dict):
     try:
@@ -28,6 +29,7 @@ def test_cant_add_contractor_to_nonexistent_consultancy(empty_practice: Coaching
     except ValueError:
         pass
     verify_model(empty_practice.contractors)
+
 
 def test_cant_add_duplicate_contractor(practice_with_consultancy: CoachingPracticeFinance,
                                        first_contractor_details: dict):
