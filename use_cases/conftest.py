@@ -6,9 +6,9 @@ from data_types import Money
 from entities import CoachingPracticeFinance, Consultancy, Contractor, Employee, FundingSource, SupportArea, \
     AreaAssignment, TransactionAgreement
 from use_cases.test_data_generators import consultancy_details_generator, contractor_details_generator, \
-    FIRST_CONSULTANCY_ID, SECOND_CONSULTANCY_ID, employee_details_generator, funding_source_details_generator, \
+    FIRST_CONSULTANCY_CODE, SECOND_CONSULTANCY_ID, employee_details_generator, funding_source_details_generator, \
     support_area_details_generator, FIRST_SUPPORT_AREA_CODE, FIRST_TRANSIT, FIRST_EMPLOYEE_ID, SECOND_CONTRACTOR_CODE, \
-    FIRST_CONTRACTOR_CODE, FIRST_SUPPORT_AREA_NUMBER
+    FIRST_CONTRACTOR_CODE, FIRST_SUPPORT_AREA_NUMBER, FIRST_INVOICE_NUMBER
 
 
 @pytest.fixture
@@ -18,7 +18,7 @@ def empty_practice() -> CoachingPracticeFinance:
 
 @pytest.fixture
 def first_consultancy_details():
-    return consultancy_details_generator(FIRST_CONSULTANCY_ID)
+    return consultancy_details_generator(FIRST_CONSULTANCY_CODE)
 
 
 @pytest.fixture
@@ -28,12 +28,12 @@ def second_consultancy_details():
 
 @pytest.fixture
 def first_contractor_details():
-    return contractor_details_generator(FIRST_CONTRACTOR_CODE, FIRST_CONSULTANCY_ID)
+    return contractor_details_generator(FIRST_CONTRACTOR_CODE, FIRST_CONSULTANCY_CODE)
 
 
 @pytest.fixture
 def second_contractor_details():
-    return contractor_details_generator(SECOND_CONTRACTOR_CODE, FIRST_CONSULTANCY_ID)
+    return contractor_details_generator(SECOND_CONTRACTOR_CODE, FIRST_CONSULTANCY_CODE)
 
 
 @pytest.fixture
@@ -123,3 +123,39 @@ def practice_with_multiple_consultancies(empty_practice,
         Consultancy(**second_consultancy_details)
     )
     return empty_practice
+
+
+@pytest.fixture
+def first_invoice_details():
+    first_invoice_details = {
+        "consultancy_code": FIRST_CONSULTANCY_CODE,
+        "number": FIRST_INVOICE_NUMBER,
+        "issue_date": "2023-01-07",
+    }
+    return first_invoice_details
+
+
+@pytest.fixture
+def first_hours_line_item_details():
+    return {
+        "invoice_number": FIRST_INVOICE_NUMBER,
+        "description": "Hours for first week",
+        "amount": Decimal(4000),
+        "contractor_code": FIRST_CONTRACTOR_CODE,
+        "taxable": True,
+        "hours": 40,
+        "period_start": "2023-01-01",
+        "period_end": "2023-01-07",
+    }
+
+
+@pytest.fixture
+def first_expense_details():
+    first_expense_details = {
+        "invoice_number": FIRST_INVOICE_NUMBER,
+        "description": "Expenses for first week",
+        "amount": Decimal(100),
+        "contractor_code": FIRST_CONTRACTOR_CODE,
+        "taxable": False,
+    }
+    return first_expense_details

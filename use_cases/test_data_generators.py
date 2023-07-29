@@ -2,7 +2,7 @@ from _decimal import Decimal
 
 from data_types import Money
 
-FIRST_CONSULTANCY_ID = "1"
+FIRST_CONSULTANCY_CODE = "1"
 SECOND_CONSULTANCY_ID = "2"
 FIRST_SUPPORT_AREA_NUMBER = 1
 FIRST_SUPPORT_AREA_CODE = "area1"
@@ -57,3 +57,6 @@ def support_area_details_generator(id: str, number: int = 1):
         "code": id,
         "name": f"Area {number}",
     }
+
+
+FIRST_INVOICE_NUMBER = "123"

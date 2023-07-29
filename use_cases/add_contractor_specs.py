@@ -1,7 +1,7 @@
 from entities import CoachingPracticeFinance
 from verifiers import verify_model
 from use_cases.add_contractor import AddContractor
-from use_cases.test_data_generators import contractor_details_generator, FIRST_CONSULTANCY_ID
+from use_cases.test_data_generators import contractor_details_generator, FIRST_CONSULTANCY_CODE
 
 
 def test_can_add_contractor_to_consultancy(practice_with_consultancy: CoachingPracticeFinance,
@@ -12,8 +12,8 @@ def test_can_add_contractor_to_consultancy(practice_with_consultancy: CoachingPr
 
 
 def test_can_add_multiple_contractors_to_consultancy(practice_with_consultancy: CoachingPracticeFinance):
-    first_contractor_details = contractor_details_generator(1, FIRST_CONSULTANCY_ID)
-    second_contractor_details = contractor_details_generator(2, FIRST_CONSULTANCY_ID)
+    first_contractor_details = contractor_details_generator(1, FIRST_CONSULTANCY_CODE)
+    second_contractor_details = contractor_details_generator(2, FIRST_CONSULTANCY_CODE)
 
     AddContractor(practice_with_consultancy).execute(**first_contractor_details)
     AddContractor(practice_with_consultancy).execute(**second_contractor_details)

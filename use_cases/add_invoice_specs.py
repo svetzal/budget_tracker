@@ -4,56 +4,38 @@ from entities import CoachingPracticeFinance
 from use_cases.add_expense_line_item_to_invoice import AddExpenseLineItemToInvoice
 from use_cases.add_hours_line_item_to_invoice import AddHoursLineItemToInvoice
 from use_cases.add_invoice import AddInvoice
+from use_cases.mark_invoice_paid import MarkInvoiceAsPaid
+from use_cases.test_data_generators import FIRST_INVOICE_NUMBER
 from verifiers import verify_model
 
 
-def test_can_add_empty_invoice_for_consultancy(staffed_practice: CoachingPracticeFinance):
-    AddInvoice(staffed_practice).execute(
-        consultancy_code=staffed_practice.consultancies[0].code,
-        number="123",
-        issue_date="2023-01-01"
-    )
+def test_can_add_empty_invoice_for_consultancy(staffed_practice: CoachingPracticeFinance, first_invoice_details: dict):
+    AddInvoice(staffed_practice).execute(**first_invoice_details)
 
     verify_model(staffed_practice.consultancies)
 
 
-def test_can_add_hours_invoice_for_consultancy(staffed_practice: CoachingPracticeFinance):
-    invoice_number = "123"
-    AddInvoice(staffed_practice).execute(
-        consultancy_code=staffed_practice.consultancies[0].code,
-        number=invoice_number,
-        issue_date="2023-01-07",
-        paid_date="2023-02-06",
-    )
-
-    AddHoursLineItemToInvoice(staffed_practice).execute(
-        invoice_number=invoice_number,
-        description="Hours for first week",
-        amount=Decimal(4000),
-        contractor_code=staffed_practice.contractors[0].code,
-        taxable=True,
-        hours=40,
-        period_start="2023-01-01",
-        period_end="2023-01-07",
-    )
+def test_can_add_hours_invoice_for_consultancy(staffed_practice: CoachingPracticeFinance, first_invoice_details: dict,
+                                               first_hours_line_item_details: dict):
+    AddInvoice(staffed_practice).execute(**first_invoice_details)
+    AddHoursLineItemToInvoice(staffed_practice).execute(**first_hours_line_item_details)
 
     verify_model(staffed_practice.consultancies)
 
-def test_can_add_expense_invoice_for_consultancy(staffed_practice: CoachingPracticeFinance):
-    invoice_number = "123"
-    AddInvoice(staffed_practice).execute(
-        consultancy_code=staffed_practice.consultancies[0].code,
-        number=invoice_number,
-        issue_date="2023-01-07",
-        paid_date="2023-02-06",
-    )
 
-    AddExpenseLineItemToInvoice(staffed_practice).execute(
-        invoice_number=invoice_number,
-        description="Expenses for first week",
-        amount=Decimal(100),
-        contractor_code=staffed_practice.contractors[0].code,
-        taxable=False,
-    )
+def test_can_add_expense_invoice_for_consultancy(staffed_practice: CoachingPracticeFinance,
+                                                 first_invoice_details: dict, first_expense_details: dict):
+    AddInvoice(staffed_practice).execute(**first_invoice_details)
+    AddExpenseLineItemToInvoice(staffed_practice).execute(**first_expense_details)
+
+    verify_model(staffed_practice.consultancies)
+
+
+def test_can_mark_invoice_paid(staffed_practice: CoachingPracticeFinance, first_invoice_details: dict,
+                               first_expense_details: dict):
+    AddInvoice(staffed_practice).execute(**first_invoice_details)
+    AddExpenseLineItemToInvoice(staffed_practice).execute(**first_expense_details)
+
+    MarkInvoiceAsPaid(staffed_practice).execute(FIRST_INVOICE_NUMBER, "2023-02-06")
 
     verify_model(staffed_practice.consultancies)
