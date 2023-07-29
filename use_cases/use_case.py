@@ -23,6 +23,10 @@ class UseCase:
         if code in [c.code for c in self.practice.contractors]:
             raise ValueError(f"Contractor {code} already exists")
 
+    def guard_employee_duplicate(self, code: str):
+        if code in [e.code for e in self.practice.employees]:
+            raise ValueError(f"Employee {code} already exists")
+
     def guard_transaction_agreement_duplicate(self, number):
         if number in [t.number for t in self.practice.transaction_agreements]:
             raise ValueError(f"Transaction agreement {number} already exists")
@@ -34,6 +38,10 @@ class UseCase:
     def guard_funding_source_exists(self, funding_source_transit):
         if not funding_source_transit in [f.transit for f in self.practice.funding_sources]:
             raise ValueError(f"Funding source {funding_source_transit} does not exist")
+
+    def guard_consultancy_duplicate(self, code: str):
+        if code in [c.code for c in self.practice.consultancies]:
+            raise ValueError(f"Consultancy {code} already exists")
 
     def find_consultancy_by_code(self, consultancy_code) -> Consultancy:
         if consultancy_code is None:

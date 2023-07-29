@@ -9,15 +9,13 @@ from use_cases.add_funding_source import AddFundingSource
 from use_cases.add_support_area import AddSupportArea
 
 
-def test_add_area_assignment():
-    practice = CoachingPracticeFinance()
-
-    AddSupportArea(practice).execute(
+def test_add_area_assignment(empty_practice: CoachingPracticeFinance):
+    AddSupportArea(empty_practice).execute(
         code="1",
         name="Area 1"
     )
 
-    AddFundingSource(practice).execute(
+    AddFundingSource(empty_practice).execute(
         transit=1,
         name="Funding Source 1",
         total=Decimal(100000),
@@ -25,7 +23,7 @@ def test_add_area_assignment():
         end_date="2020-12-31",
     )
 
-    AddConsultancy(practice).execute(
+    AddConsultancy(empty_practice).execute(
         code="1",
         name="Consultancy 1",
         contract="CTR00123",
@@ -34,7 +32,7 @@ def test_add_area_assignment():
         contact_email="someone@somewhere.com",
     )
 
-    AddContractor(practice).execute(
+    AddContractor(empty_practice).execute(
         code="1",
         name="Contractor 1",
         consultancy_code="1",
@@ -43,7 +41,7 @@ def test_add_area_assignment():
         start_date="2020-01-01",
     )
 
-    AddAreaAssignment(practice).execute(
+    AddAreaAssignment(empty_practice).execute(
         support_area_code="1",
         contractor_code="1",
         funding_source_transit=1,
@@ -51,4 +49,4 @@ def test_add_area_assignment():
         end_date="2020-12-31",
     )
 
-    verify_model(practice.area_assignments)
+    verify_model(empty_practice.area_assignments)

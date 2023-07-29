@@ -1,55 +1,40 @@
 from entities import CoachingPracticeFinance
 from model_verifier import verify_model
-from use_cases.add_consultancy import AddConsultancy
 from use_cases.add_contractor import AddContractor
+from use_cases.test_data_generators import contractor_details_generator, FIRST_CONSULTANCY_ID
 
 
-def test_can_add_contractor_to_consultancy():
-    practice = CoachingPracticeFinance()
-    AddConsultancy(practice).execute(
-        code="1",
-        name="Consultancy 1",
-        contract="CTR00123",
-        contact_name="Someone",
-        contact_phone="647-555-1212",
-        contact_email="someone@somewhere.com"
-    )
+def test_can_add_contractor_to_consultancy(practice_with_consultancy: CoachingPracticeFinance,
+                                           first_contractor_details: dict):
+    AddContractor(practice_with_consultancy).execute(**first_contractor_details)
 
-    AddContractor(practice).execute(
-        code="1",
-        name="Contractor 1",
-        consultancy_code="1",
-        email="contractor@somewhere.com",
-        start_date="2021-01-01"
-    )
-
-    verify_model(practice.contractors)
+    verify_model(practice_with_consultancy.contractors)
 
 
-def test_can_add_multiple_contractors_to_consultancy():
-    practice = CoachingPracticeFinance()
-    AddConsultancy(practice).execute(
-        code="1",
-        name="Consultancy 1",
-        contract="CTR00123",
-        contact_name="Someone",
-        contact_phone="647-555-1212",
-        contact_email="someone@somewhere.com"
-    )
+def test_can_add_multiple_contractors_to_consultancy(practice_with_consultancy: CoachingPracticeFinance):
+    first_contractor_details = contractor_details_generator(1, FIRST_CONSULTANCY_ID)
+    second_contractor_details = contractor_details_generator(2, FIRST_CONSULTANCY_ID)
 
-    AddContractor(practice).execute(
-        code="1",
-        name="Contractor 1",
-        consultancy_code="1",
-        email="contractor@somewhere.com",
-        start_date="2021-01-01"
-    )
-    AddContractor(practice).execute(
-        code="2",
-        name="Contractor 2",
-        consultancy_code="1",
-        email="contractor@somewhere.com",
-        start_date="2021-01-01"
-    )
+    AddContractor(practice_with_consultancy).execute(**first_contractor_details)
+    AddContractor(practice_with_consultancy).execute(**second_contractor_details)
 
-    verify_model(practice.contractors)
+    verify_model(practice_with_consultancy.contractors)
+
+def test_cant_add_contractor_to_nonexistent_consultancy(empty_practice: CoachingPracticeFinance,
+                                                        first_contractor_details: dict):
+    try:
+        AddContractor(empty_practice).execute(**first_contractor_details)
+        assert False, "Should have failed with ValueError"
+    except ValueError:
+        pass
+    verify_model(empty_practice.contractors)
+
+def test_cant_add_duplicate_contractor(practice_with_consultancy: CoachingPracticeFinance,
+                                       first_contractor_details: dict):
+    AddContractor(practice_with_consultancy).execute(**first_contractor_details)
+    try:
+        AddContractor(practice_with_consultancy).execute(**first_contractor_details)
+        assert False, "Should have failed with ValueError"
+    except ValueError:
+        pass
+    verify_model(practice_with_consultancy.contractors)
