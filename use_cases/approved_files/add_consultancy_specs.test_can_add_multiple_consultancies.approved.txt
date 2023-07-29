@@ -1,0 +1,20 @@
+[
+    {
+        "code": "1",
+        "name": "Consultancy 1",
+        "contract": "CTR001",
+        "contact_name": "Someone",
+        "contact_phone": "647-555-1212",
+        "contact_email": "someone@consultancy1.com",
+        "invoices": []
+    },
+    {
+        "code": "2",
+        "name": "Consultancy 2",
+        "contract": "CTR002",
+        "contact_name": "Someone",
+        "contact_phone": "647-555-1212",
+        "contact_email": "someone@consultancy2.com",
+        "invoices": []
+    }
+]
