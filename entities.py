@@ -83,7 +83,7 @@ class Consultancy(BaseModel):
 class TransactionAgreement(BaseModel):
     number: str = Field(..., description="Number of the transaction agreement")
     contractor_code: str = Field(..., description="Contractor code of the transaction agreement")
-    hours: int = Field(..., description="Number of hours in the transaction agreement")
+    hours: float = Field(..., description="Number of hours in the transaction agreement")
     rate: Money = Field(..., description="Rate of the transaction agreement")
     start_date: date = Field(..., description="Start date of the transaction agreement")
     end_date: date = Field(..., description="End date of the transaction agreement")
