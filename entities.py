@@ -34,6 +34,7 @@ class SupportPlan(BaseModel):
     end_date: date = Field(..., description="End date of the support plan")
     coach_profile: CoachAssessment = Field(..., description="Coach profile of the support plan")
 
+
 class LineItem(BaseModel):
     description: str = Field(..., description="Description of the line item")
     amount: Money = Field(..., description="Amount of the line item")
@@ -113,7 +114,7 @@ class Contractor(Person):
     consultancy_code: str = Field(..., description="Consultancy code of the contractor")
     tag: Literal["Contractor"] = "Contractor"
 
-    def org_code(self):
+    def org_code(self) -> Optional[str]:
         return self.consultancy_code
 
     def works_through(self, consultancy_code: str) -> bool:
@@ -131,10 +132,11 @@ class AreaAssignment(BaseModel):
 class CoachingPracticeFinance(BaseModel):
     fiscal_start_month: int = Field(11, description="Start month of the fiscal year")
     stat_holidays_per_year: int = Field(9, description="Number of statutory holidays per year")
-    statutory_holiday_list: List[str] = ['2023-01-02', '2023-02-20', '2023-04-07', '2023-05-22', '2023-07-03',
-                                         '2023-08-07', '2023-09-04', '2023-10-09', '2023-12-25', '2023-12-26',
-                                         '2024-01-01', '2024-02-19', '2024-04-01', '2024-05-20', '2024-07-01',
-                                         '2024-08-05', '2024-09-02', '2024-10-14', '2024-12-25', '2024-12-26']
+    statutory_holiday_list: List[str] = ['2022-12-26', '2022-12-27', '2023-01-02', '2023-02-20', '2023-04-07',
+                                         '2023-05-22', '2023-07-03', '2023-08-07', '2023-09-04', '2023-10-09',
+                                         '2023-12-25', '2023-12-26', '2024-01-01', '2024-02-19', '2024-04-01',
+                                         '2024-05-20', '2024-07-01', '2024-08-05', '2024-09-02', '2024-10-14',
+                                         '2024-12-25', '2024-12-26']
     expected_weeks_holidays: int = Field(4, description="Number of expected weeks of holidays")
     standard_hours_per_day: Decimal = Field(7.5, description="Standard hours per day")
     consultancies: List[Consultancy] = []
