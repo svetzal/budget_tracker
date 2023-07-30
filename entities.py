@@ -1,9 +1,8 @@
 from decimal import Decimal
 from datetime import date
-from typing import Literal, Union, Optional
+from typing import Literal, Union, Optional, List
 
 from pydantic import BaseModel, Field
-from pydantic.types import List
 
 from data_types import Money
 
