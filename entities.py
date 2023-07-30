@@ -106,11 +106,12 @@ class Person(BaseModel):
 
 
 class Employee(Person):
-    pass
+    tag: Literal["Employee"] = "Employee"
 
 
 class Contractor(Person):
     consultancy_code: str = Field(..., description="Consultancy code of the contractor")
+    tag: Literal["Contractor"] = "Contractor"
 
     def org_code(self):
         return self.consultancy_code

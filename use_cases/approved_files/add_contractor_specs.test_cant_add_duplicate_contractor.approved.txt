@@ -7,6 +7,7 @@
         "phone_number": null,
         "end_date": null,
         "assessments": [],
-        "consultancy_code": "1"
+        "consultancy_code": "1",
+        "tag": "Contractor"
     }
 ]

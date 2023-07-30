@@ -13,6 +13,7 @@
                 "technical": 0.5,
                 "practice": 1.0
             }
-        ]
+        ],
+        "tag": "Employee"
     }
 ]

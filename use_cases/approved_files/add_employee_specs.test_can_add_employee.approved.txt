@@ -6,6 +6,7 @@
         "start_date": "2021-01-01",
         "phone_number": null,
         "end_date": null,
-        "assessments": []
+        "assessments": [],
+        "tag": "Employee"
     }
 ]

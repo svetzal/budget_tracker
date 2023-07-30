@@ -14,6 +14,7 @@
                 "practice": 1.0
             }
         ],
-        "consultancy_code": "1"
+        "consultancy_code": "1",
+        "tag": "Contractor"
     }
 ]
