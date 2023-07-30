@@ -98,7 +98,7 @@ class Person(BaseModel):
     end_date: Optional[date] = Field(None, description="End date of employment for the person")
     assessments: List[CoachAssessment] = []
 
-    def org_code(self):
+    def org_code(self) -> Optional[str]:
         return None
 
     def works_through(self, consultancy_code: str) -> bool:
