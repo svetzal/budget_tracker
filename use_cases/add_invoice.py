@@ -7,7 +7,7 @@ from use_cases.use_case import UseCase
 
 class AddInvoice(UseCase):
     def execute(self, consultancy_code: str, number: str, issue_date: str, paid_date: Optional[str] = None):
-        self.guard_consultancy_exists(consultancy_code)
+        self.guard_consultancy_must_exist(consultancy_code)
         invoice = Invoice(
             number=number,
             consultancy_code=consultancy_code,

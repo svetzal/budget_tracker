@@ -6,7 +6,7 @@ from use_cases.use_case import UseCase
 
 class AddEmployee(UseCase):
     def execute(self, code: str, name: str, email: str, start_date: str, end_date: str = None, phone_number: str = None):
-        self.guard_employee_duplicate(code)
+        self.guard_employee_not_duplicate(code)
         employee = Employee(
             code=code,
             name=name,

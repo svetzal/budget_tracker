@@ -4,7 +4,7 @@ from use_cases.use_case import UseCase
 
 class AddConsultancy(UseCase):
     def execute(self, code: str, name: str, contract: str, contact_name: str, contact_phone: str, contact_email: str):
-        self.guard_consultancy_duplicate(code)
+        self.guard_consultancy_not_duplicate(code)
         consultancy = Consultancy(
             code=code,
             name=name,

@@ -8,8 +8,8 @@ from use_cases.use_case import UseCase
 
 class AddTransactionAgreement(UseCase):
     def execute(self, number: str, contractor_code: str, hours: int, rate: float, start_date: str, end_date: str):
-        self.guard_contractor_exists(contractor_code)
-        self.guard_transaction_agreement_duplicate(number)
+        self.guard_contractor_must_exist(contractor_code)
+        self.guard_transaction_agreement_not_duplicate(number)
         transaction_agreement = TransactionAgreement(
             number=number,
             contractor_code=contractor_code,
