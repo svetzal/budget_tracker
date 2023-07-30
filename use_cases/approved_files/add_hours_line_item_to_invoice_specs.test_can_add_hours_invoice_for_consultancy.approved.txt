@@ -15,9 +15,7 @@
                 "line_items": [
                     {
                         "description": "Hours for first week",
-                        "amount": {
-                            "root": "4000"
-                        },
+                        "amount": "4000",
                         "contractor_code": "1",
                         "taxable": true,
                         "hours": 40,

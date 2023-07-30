@@ -1,9 +1,9 @@
 from _decimal import Decimal
 
-from pydantic import BaseModel
+from pydantic import RootModel
 
 
-class Money(BaseModel):
+class Money(RootModel):
     root: Decimal
 
     @classmethod
