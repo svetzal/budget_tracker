@@ -1,6 +1,6 @@
 
 People
 
-  [1m[4mCode[0m  [1m[4mName[0m          [1m[4mCompany[0m
-     1  Contractor 1  Consultancy 1
-     1  Employee 1    Coaching Practice
+  [1m[4mCode[0m  [1m[4mName[0m          [1m[4mCompany[0m            [1m[4mStart Date[0m    [1m[4mEnd Date[0m
+     1  Contractor 1  Consultancy 1      2023-01-01
+     1  Employee 1    Coaching Practice  2021-01-01

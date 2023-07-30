@@ -10,9 +10,9 @@ class ListPeople(UseCase):
         for c in self.practice.consultancies:
             for p in self.practice.contractors:
                 if c.code == p.consultancy_code:
-                    people.append([p.code, p.name, c.name])
+                    people.append([p.code, p.name, c.name, p.start_date, p.end_date])
         for p in self.practice.employees:
-            people.append([p.code, p.name, "Coaching Practice"])
-        df = pd.DataFrame(people, columns=["Code", "Name", "Company"])
+            people.append([p.code, p.name, "Coaching Practice", p.start_date, p.end_date])
+        df = pd.DataFrame(people, columns=["Code", "Name", "Company", "Start Date", "End Date"])
         output = DataFrameRenderer(title="People", data=df, sort_by=["Name"])
         return output.lines()

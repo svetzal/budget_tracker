@@ -43,8 +43,16 @@ def main():
             'label': 'List People'
         },
         {
+            'func': ListActivePeople(practice).execute,
+            'label': 'List Active People'
+        },
+        {
             'func': AddTransactionAgreement(practice).execute,
             'label': 'Add Transaction Agreement'
+        },
+        {
+            'func': ListTransactionAgreementsByContractor(practice).execute,
+            'label': 'List Transaction Agreements By Contractor'
         },
         {
             'func': CurrentFiscalYearMonthly(practice).execute,
