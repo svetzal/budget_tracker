@@ -38,11 +38,11 @@ class SupportPlan(BaseModel):
 class LineItem(BaseModel):
     description: str = Field(..., description="Description of the line item")
     amount: Money = Field(..., description="Amount of the line item")
-    contractor_code: str = Field(..., description="Contractor code of the line item")
     taxable: bool = Field(..., description="Taxable status of the line item")
 
 
 class HoursLineItem(LineItem):
+    contractor_code: str = Field(..., description="Contractor code of the line item")
     hours: Optional[float] = Field(None, description="Number of hours for the line item")
     period_start: date = Field(..., description="Start date of the period covered by the line item")
     period_end: date = Field(..., description="End date of the period covered by the line item")
@@ -50,6 +50,7 @@ class HoursLineItem(LineItem):
 
 
 class ExpenseLineItem(LineItem):
+    contractor_code: str = Field(..., description="Contractor code of the line item")
     tag: Literal["Expense"] = "Expense"
 
 

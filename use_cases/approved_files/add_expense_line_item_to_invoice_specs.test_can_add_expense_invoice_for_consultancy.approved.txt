@@ -15,8 +15,8 @@
                     {
                         "description": "Expenses for first week",
                         "amount": "100",
-                        "contractor_code": "1",
                         "taxable": false,
+                        "contractor_code": "1",
                         "tag": "Expense"
                     }
                 ]
