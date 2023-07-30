@@ -17,7 +17,7 @@
                         "amount": "4000",
                         "contractor_code": "1",
                         "taxable": true,
-                        "hours": 40,
+                        "hours": 40.0,
                         "period_start": "2023-01-01",
                         "period_end": "2023-01-07",
                         "tag": "Hours"

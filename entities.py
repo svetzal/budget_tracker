@@ -43,7 +43,7 @@ class LineItem(BaseModel):
 
 
 class HoursLineItem(LineItem):
-    hours: Optional[int] = Field(None, description="Number of hours for the line item")
+    hours: Optional[float] = Field(None, description="Number of hours for the line item")
     period_start: date = Field(..., description="Start date of the period covered by the line item")
     period_end: date = Field(..., description="End date of the period covered by the line item")
     tag: Literal["Hours"] = "Hours"
