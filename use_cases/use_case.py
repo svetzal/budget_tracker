@@ -12,16 +12,16 @@ class UseCase:
         self.practice = practice
 
     def guard_consultancy_must_exist(self, consultancy_code):
-        if not consultancy_code in [c.code for c in self.practice.consultancies]:
+        if consultancy_code not in [c.code for c in self.practice.consultancies]:
             raise ValueError(f"Consultancy {consultancy_code} does not exist")
 
     def guard_contractor_must_exist(self, contractor_code):
-        if not contractor_code in [c.code for c in self.practice.contractors]:
+        if contractor_code not in [c.code for c in self.practice.contractors]:
             raise ValueError(f"Contractor {contractor_code} does not exist")
 
     def guard_person_must_exist(self, person_code):
-        if not person_code in [c.code for c in self.practice.contractors] and \
-                not person_code in [e.code for e in self.practice.employees]:
+        if person_code not in [c.code for c in self.practice.contractors] and \
+                person_code not in [e.code for e in self.practice.employees]:
             raise ValueError(f"Person {person_code} does not exist")
 
     def guard_contractor_not_duplicate(self, code):
@@ -37,7 +37,7 @@ class UseCase:
             raise ValueError(f"Transaction agreement {number} already exists")
 
     def guard_support_area_must_exist(self, support_area_code):
-        if not support_area_code in [a.code for a in self.practice.support_areas]:
+        if support_area_code not in [a.code for a in self.practice.support_areas]:
             raise ValueError(f"Support area {support_area_code} does not exist")
 
     def guard_support_area_not_duplicate(self, support_area_code: str):
@@ -45,7 +45,7 @@ class UseCase:
             raise ValueError(f"Support area {support_area_code} already exists")
 
     def guard_funding_source_must_exist(self, funding_source_transit):
-        if not funding_source_transit in [f.transit for f in self.practice.funding_sources]:
+        if funding_source_transit not in [f.transit for f in self.practice.funding_sources]:
             raise ValueError(f"Funding source {funding_source_transit} does not exist")
 
     def guard_consultancy_not_duplicate(self, code: str):
