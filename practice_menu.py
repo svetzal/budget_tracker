@@ -4,6 +4,8 @@ from typing import List
 from entities import CoachingPracticeFinance
 from presentation import Colours
 from use_cases.add_area_assignment import AddAreaAssignment
+from use_cases.list_active_people import ListActivePeople
+from use_cases.list_transaction_agreements_by_contractor import ListTransactionAgreementsByContractor
 from use_cases.report_next_fiscal_year_monthly import NextFiscalYearBudgetMonthly
 from use_cases.report_current_fiscal_year_monthly import CurrentFiscalYearMonthly
 from use_cases.list_consultancies import ListConsultancies
