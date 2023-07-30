@@ -2,6 +2,8 @@
     "fiscal_start_month": 11,
     "stat_holidays_per_year": 9,
     "statutory_holiday_list": [
+        "2022-12-26",
+        "2022-12-27",
         "2023-01-02",
         "2023-02-20",
         "2023-04-07",

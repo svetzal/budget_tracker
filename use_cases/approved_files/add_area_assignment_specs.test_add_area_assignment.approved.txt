@@ -1,7 +1,7 @@
 [
     {
         "support_area_code": "area1",
-        "contractor_code": "1",
+        "person_code": "1",
         "funding_source_transit": 1,
         "start_date": "2023-01-01",
         "end_date": "2023-12-31"

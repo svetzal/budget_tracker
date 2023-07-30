@@ -103,7 +103,7 @@ def operational_practice(staffed_practice: CoachingPracticeFinance):
     staffed_practice.area_assignments.append(
         AreaAssignment(
             support_area_code=FIRST_SUPPORT_AREA_CODE,
-            contractor_code=FIRST_CONTRACTOR_CODE,
+            person_code=FIRST_CONTRACTOR_CODE,
             funding_source_transit=FIRST_TRANSIT,
             start_date="2023-01-01",
             end_date="2023-12-31"
