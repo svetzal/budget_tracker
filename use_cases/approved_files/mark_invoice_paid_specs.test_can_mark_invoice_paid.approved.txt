@@ -9,7 +9,6 @@
         "invoices": [
             {
                 "number": "123",
-                "consultancy_code": "1",
                 "paid_date": "2023-02-06",
                 "issue_date": "2023-01-07",
                 "line_items": [

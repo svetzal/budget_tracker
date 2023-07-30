@@ -59,7 +59,6 @@ class IncidentalLineItem(LineItem):
 
 class Invoice(BaseModel):
     number: str = Field(..., description="Number of the invoice")
-    consultancy_code: str = Field(..., description="Code of the issuing consultancy")
     paid_date: Optional[date] = Field(None, description="Date invoice was paid")
     issue_date: date = Field(..., description="Issue date of the invoice")
     line_items: List[Union[IncidentalLineItem, HoursLineItem, ExpenseLineItem]] = []
