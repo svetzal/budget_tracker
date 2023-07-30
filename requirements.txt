@@ -4,5 +4,7 @@ pandas
 openpyxl
 tabulate
 PyQt6
+matplotlib
+jupyter
 approvaltests
 pytest-approvaltests
