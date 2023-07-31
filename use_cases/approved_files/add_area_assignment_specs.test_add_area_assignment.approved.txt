@@ -3,6 +3,7 @@
         "support_area_code": "area1",
         "person_code": "1",
         "funding_source_transit": 1,
+        "level": "program",
         "start_date": "2023-01-01",
         "end_date": "2023-12-31"
     }

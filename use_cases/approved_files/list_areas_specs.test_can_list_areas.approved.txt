@@ -1,5 +1,5 @@
 
 Area Assignments
 
-[1m[4mArea[0m    [1m[4mContractor[0m      [1m[4mFunding Source[0m  [1m[4mStart Date[0m    [1m[4mEnd Date[0m
-Area 1  Contractor 1                 1  2023-01-01    2023-12-31
+[1m[4mArea[0m    [1m[4mContractor[0m    [1m[4mLevel[0m      [1m[4mFunding Source[0m  [1m[4mStart Date[0m    [1m[4mEnd Date[0m
+Area 1  Contractor 1  program                 1  2023-01-01    2023-12-31

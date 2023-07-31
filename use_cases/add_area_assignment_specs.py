@@ -9,6 +9,7 @@ def test_add_area_assignment(staffed_practice: CoachingPracticeFinance):
         support_area_code=FIRST_SUPPORT_AREA_CODE,
         person_code=FIRST_CONTRACTOR_CODE,
         funding_source_transit=FIRST_TRANSIT,
+        level="program",
         start_date="2023-01-01",
         end_date="2023-12-31",
     )

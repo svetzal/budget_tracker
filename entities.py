@@ -125,6 +125,7 @@ class AreaAssignment(BaseModel):
     support_area_code: str = Field(..., description="Support area code of the area assignment")
     person_code: str = Field(..., description="Person code of the area assignment")
     funding_source_transit: int = Field(..., description="Funding source transit of the area assignment")
+    level: str = Field('program', description="Level of the area assignment, 'exec' or 'program'")
     start_date: date = Field(..., description="Start date of the area assignment")
     end_date: date = Field(..., description="End date of the area assignment")
 
@@ -156,3 +157,7 @@ class CoachingPracticeFinance(BaseModel):
     def save(self, filename: str = "practice.json"):
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=4))
+
+
+LEVEL_PROGRAM = 'program'
+LEVEL_EXECUTIVE = 'exec'
