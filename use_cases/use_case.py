@@ -1,4 +1,5 @@
-import datetime
+from datetime import date
+from typing import List
 
 import pandas as pd
 
@@ -109,13 +110,20 @@ class UseCase:
             raise ValueError(f"Employee {employee_code} is ambiguous (found multiple)")
         return candidates[0]
 
-    def aggregate_contractors_employees(self):
-        people: list[Person] = []
-        for p in self.practice.contractors:
-            people.append(p)
+    def aggregate_contractors_employees(self) -> List[Person]:
+        people: list[Person] = [p for p in self.practice.contractors]
         for p in self.practice.employees:
             people.append(p)
         return people
 
-    def count_business_days_between_dates(self, start_date: datetime.date, end_date: datetime.date) -> int:
+    def count_business_days_between_dates(self, start_date: date, end_date: date) -> int:
         return pd.bdate_range(start_date, end_date, freq='C', holidays=self.practice.statutory_holiday_list).size
+
+    def find_relevant_transaction_agreement(self, contractor_code: str, on: date):
+        candidates = [t for t in self.practice.transaction_agreements if
+                      t.contractor_code == contractor_code and t.start_date <= on <= t.end_date]
+        if len(candidates) == 0:
+            raise ValueError(f"No relevant transaction agreement for contractor {contractor_code} on {on}")
+        if len(candidates) > 1:
+            raise ValueError(f"Multiple relevant transaction agreements for contractor {contractor_code} on {on}")
+        return candidates[0]
