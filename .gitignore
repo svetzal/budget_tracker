@@ -4,4 +4,5 @@ __pycache__
 .ipynb_checkpoints
 initial_load.py
 practice.json
+notebooks
 /SampleDataframe.xlsx
