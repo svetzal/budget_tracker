@@ -7,7 +7,7 @@ from use_cases.use_case import UseCase
 class ListAreas(UseCase):
     def execute(self):
         areas = []
-        for c in self.practice.contractors:
+        for c in self.practice.contractors + self.practice.employees:
             for a in self.practice.support_areas:
                 for s in self.practice.area_assignments:
                     if c.code == s.person_code and s.support_area_code == a.code:
