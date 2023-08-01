@@ -40,7 +40,7 @@ class ListUnstaffedAreas(UseCase):
 
     def prepare_assignments_frame(self, report_date_range):
         assignment_coverage = []
-        columns = ['date'] + [a.support_area_code for a in self.practice.area_assignments]
+        columns = ['date'] + [a.code for a in self.practice.support_areas]
         for date in report_date_range:
             row = [date]
             for a in self.practice.support_areas:
