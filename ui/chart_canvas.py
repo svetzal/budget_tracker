@@ -28,7 +28,6 @@ class BudgetAndActualsCanvas(FigureCanvasQTAgg):
                     ta_array.append(ta_dict)
 
         ta_frame = pd.DataFrame(ta_array)
-        print(ta_frame.to_string())
         ta_frame["amount"] = ta_frame.rate * ta_frame.hours
 
         budget_summary = ta_frame[["date", "amount"]].rename(columns={"amount": "budget"})
