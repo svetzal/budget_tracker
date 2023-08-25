@@ -68,9 +68,7 @@ class ChartWorker(QtCore.QThread):
         report_frame['month'] = report_frame['date'].dt.month
         report_frame['budget'] = report_frame['budget'].fillna(0)
         report_frame['actual'] = report_frame['actual'].fillna(0)
-        report_frame.groupby(["year", "month"]).aggregate({"date": "first", "budget": "sum", "actual": "sum"}).reindex(['date'])
-
-        self.report_frame = report_frame
+        self.report_frame = report_frame.groupby(["year", "month"]).aggregate({"date": "first", "budget": "sum", "actual": "sum"})
 
         self.finished.emit()
 
