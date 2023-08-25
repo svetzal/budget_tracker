@@ -1,16 +1,17 @@
 import pandas as pd
+from PyQt6 import QtCore
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 
 
-class BudgetAndActualsCanvas(FigureCanvasQTAgg):
-    def __init__(self, practice):
-        self.practice = practice
-        fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
-        super().__init__(fig)
-        self.plot()
+class ChartWorker(QtCore.QThread):
+    finished = QtCore.pyqtSignal()
 
-    def plot(self):
+    def __init__(self, practice):
+        super().__init__()
+        self.practice = practice
+
+    def run(self):
         period_start = pd.to_datetime("2022-11-01")
         period_end = pd.to_datetime("2023-10-31")
         report_date_range = pd.bdate_range(period_start, period_end, freq="C", holidays=self.practice.statutory_holiday_list)
@@ -67,4 +68,25 @@ class BudgetAndActualsCanvas(FigureCanvasQTAgg):
         report_frame['month'] = report_frame['date'].dt.month
         report_frame['budget'] = report_frame['budget'].fillna(0)
         report_frame['actual'] = report_frame['actual'].fillna(0)
-        report_frame.groupby(["year", "month"]).aggregate({"date": "first", "budget": "sum", "actual": "sum"}).plot(ax=self.ax, y=["budget", "actual"])
+        report_frame.groupby(["year", "month"]).aggregate({"date": "first", "budget": "sum", "actual": "sum"}).reindex(['date'])
+
+        self.report_frame = report_frame
+
+        self.finished.emit()
+
+class BudgetAndActualsCanvas(FigureCanvasQTAgg):
+    def __init__(self, practice):
+        self.practice = practice
+        fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
+        super().__init__(fig)
+        self.worker = ChartWorker(practice)
+        self.worker.finished.connect(self.plot)
+        self.worker.start()
+
+    def plot(self):
+        self.worker.report_frame.plot(ax=self.ax, y=["budget", "actual"], x='date')
+        self.ax.set_title("Budget and Actuals")
+        self.ax.set_xlabel("Date")
+        self.ax.set_ylabel("Amount")
+        self.ax.legend(["Budget", "Actual"])
+        self.draw()

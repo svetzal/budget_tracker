@@ -1,7 +1,7 @@
 from setuptools import setup
 
 APP = ['main.py']
-DATA_FILES = []
+DATA_FILES = ['practice.json']
 OPTIONS = {
     'argv_emulation': True,
     # 'iconfile': 'icon.icns',
