@@ -1,7 +1,10 @@
+.DS_Store
 __pycache__
 .idea
 .venv
 .ipynb_checkpoints
 initial_load.py
 practice.json
+build
+dist
 /SampleDataframe.xlsx
